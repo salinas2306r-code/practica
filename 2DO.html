@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Precios de Alimentos</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f0ffe8;
+margin:0;
+}
+
+header{
+background:#7ED957;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+section{
+background:white;
+width:90%;
+max-width:900px;
+margin:20px auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+h2{
+color:#4c9a2a;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:5px 0 15px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+background:#7ED957;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#66c145;
+}
+
+.resultado{
+background:#eefbe7;
+padding:15px;
+border-radius:8px;
+margin-top:15px;
+}
+
+footer{
+background:#7ED957;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🛒 Simulador de Precios de Alimentos</h1>
+<p>Computación Científica I</p>
+<p>Carrera de Matemática</p>
+<p>Estudiante: Salinas Ramos Diego</p>
+</header>
+
+<section>
+
+<h2>Contexto</h2>
+
+<p>
+Este simulador permite analizar cómo el incremento de precios
+de los alimentos afecta el presupuesto familiar.
+</p>
+
+</section>
+
+<section>
+
+<h2>Datos del Producto</h2>
+
+<label>Producto</label>
+
+<input
+type="text"
+id="producto"
+list="productos"
+placeholder="Escriba un alimento..."
+>
+
+<datalist id="productos">
+<option value="Arroz">
+<option value="Papa">
+<option value="Aceite">
+<option value="Azúcar">
+<option value="Leche">
+<option value="Pollo">
+<option value="Carne de Res">
+<option value="Carne de Cerdo">
+<option value="Pescado">
+<option value="Huevos">
+<option value="Pan">
+<option value="Tomate">
+<option value="Cebolla">
+<option value="Zanahoria">
+<option value="Lechuga">
+<option value="Manzana">
+<option value="Naranja">
+<option value="Banano">
+<option value="Papaya">
+<option value="Piña">
+<option value="Queso">
+<option value="Yogurt">
+<option value="Lenteja">
+<option value="Frijol">
+<option value="Garbanzo">
+</datalist>
+
+<label>Precio Anterior (Bs)</label>
+<input type="number" id="anterior">
+
+<label>Precio Actual (Bs)</label>
+<input type="number" id="actual">
+
+<label>Cantidad por Semana</label>
+<input type="number" id="cantidad">
+
+<label>Número de Semanas</label>
+<input type="number" id="semanas">
+
+<button onclick="calcular()">Calcular</button>
+
+<div class="resultado" id="resultado">
+Aquí aparecerán los resultados.
+</div>
+
+</section>
+
+<section>
+
+<h2>Caso de Estudio</h2>
+
+<p>
+Arroz: de 8 Bs a 11 Bs<br>
+Papa: de 7 Bs a 10 Bs<br>
+Aceite: de 12 Bs a 18 Bs
+</p>
+
+</section>
+
+<section>
+
+<h2>Conclusiones</h2>
+
+<p>
+Los aumentos de precios reducen el poder adquisitivo de las familias
+y elevan el gasto mensual destinado a la alimentación.
+</p>
+
+</section>
+
+<footer>
+Proyecto de Computación Científica I
+</footer>
+
+<script>
+
+function calcular(){
+
+let anterior =
+parseFloat(document.getElementById("anterior").value);
+
+let actual =
+parseFloat(document.getElementById("actual").value);
+
+let cantidad =
+parseFloat(document.getElementById("cantidad").value);
+
+let semanas =
+parseFloat(document.getElementById("semanas").value);
+
+if(
+isNaN(anterior) ||
+isNaN(actual) ||
+isNaN(cantidad) ||
+isNaN(semanas)
+){
+alert("Complete todos los campos");
+return;
+}
+
+let incremento =
+actual - anterior;
+
+let porcentaje =
+(incremento / anterior) * 100;
+
+let gastoAnterior =
+anterior * cantidad * semanas;
+
+let gastoActual =
+actual * cantidad * semanas;
+
+let diferencia =
+gastoActual - gastoAnterior;
+
+let estado = "🟢 Aumento Bajo";
+
+if(porcentaje > 20){
+estado = "🟡 Aumento Moderado";
+}
+
+if(porcentaje > 50){
+estado = "🔴 Aumento Crítico";
+}
+
+document.getElementById("resultado").innerHTML =
+
+"<b>Incremento:</b> " + incremento.toFixed(2) + " Bs<br><br>" +
+
+"<b>Porcentaje de aumento:</b> " + porcentaje.toFixed(2) + "%<br><br>" +
+
+"<b>Gasto anterior:</b> " + gastoAnterior.toFixed(2) + " Bs<br><br>" +
+
+"<b>Gasto actual:</b> " + gastoActual.toFixed(2) + " Bs<br><br>" +
+
+"<b>Diferencia:</b> " + diferencia.toFixed(2) + " Bs<br><br>" +
+
+"<b>Estado:</b> " + estado;
+
+}
+
+</script>
+
+</body>
+</html>
